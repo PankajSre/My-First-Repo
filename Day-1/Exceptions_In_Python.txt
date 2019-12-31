@@ -1,0 +1,330 @@
+Errors and Exceptions in Python:
+----------------------------------
+When writing a program, many things can go wrong. Sometimes these errors are your mistake in the code, other times, they are unavoidable, yet potentially harmful. In simple words, errors are something which Python doesn't like and will show its displeasure on by abruptly terminating the program.
+
+Errors can be of two types:
+
+Syntax errors:
+-------------
+Errors which are encountered at runtime (Exceptions)
+
+Errors caused by not following the proper structure (syntax) of the language are called syntax or parsing errors.
+
+testArray = [1,2,3]
+for value in testArray:
+print(value)
+  File "<ipython-input-23-30fcf0822ade>", line 3
+    print(value)
+        ^
+IndentationError: expected an indented block
+The parser repeats the line on which the error is and displays a little ‘arrow’ pointing at the earliest point in the line where the error was detected. The error is caused by (or at least detected at) the token preceding the arrow. As you can see in the error message, the code is not indented properly. Syntax errors are easy to fix, Python will show you the line number where the error is, with an error message which will be self-explanatory.
+
+Exceptions:
+------------------
+Exceptions occur during run-time. Your code may be syntactically correct but it may happen that during run-time Python encounters something which it can't handle, then it raises an exception. For example, dividing a number by zero or trying to write to a file which is read-only.
+
+When a Python script raises exception, it creates an Exception object. If the script doesn't handle exception the program will terminate abruptly.
+
+
+Python Built-in Exceptions
+Python provides us some basic exception classes which are already defined and can be used in generic cases.
+
+Exception Class	Event
+----------------------
+Exception	Base class for all exceptions
+
+ArithmeticError	Raised when numeric calculations fails
+
+FloatingPointError	Raised when a floating point calculation fails
+
+ZeroDivisionError	Raised when division or modulo by zero takes place for all numeric types
+
+AssertionError	Raised when Assert statement fails
+
+OverflowError	Raised when result of an arithmetic operation is too large to be represented
+
+ImportError	Raised when the imported module is not found
+
+IndexError	Raised when index of a sequence is out of range
+
+KeyboardInterrupt	Raised when the user interrupts program execution, generally by pressing Ctrl+c
+
+IndentationError	Raised when there is incorrect indentation
+
+SyntaxError	Raised by parser when syntax error is encountered
+
+KeyError	Raised when the specified key is not found in the dictionary
+
+NameError	Raised when an identifier is not found in the local or global namespace
+
+TypeError	Raised when a function or operation is applied to an object of incorrect type
+
+ValueError	Raised when a function gets argument of correct type but improper value
+
+IOError	Raised when an input/ output operation fails
+
+RuntimeError	Raised when a generated error does not fall into any category
+
+
+ArithmeticError:
+----------------------
+ArithmeticError is the base class for all arithmetic exceptions which are raised for errors in arithmetic operations, such as
+
+OverflowError
+ZeroDivisionError
+FloatingPointError
+In the program below, a number is being divided by zero, which will raise an ArithmeticError exception.
+
+try:  
+    a = 10/0
+    print (a)
+except ArithmeticError:  
+        print ("Arithmetic exception raised." )
+else:  
+    print ("Success.")
+Arithmetic exception raised.
+AssertionError
+
+
+An AssertionError is raised by a failed assert statement. In the program below, the value of 2 variables is compared to check if they are equal or not. The assert statement raises an exception when the expression returns false. Since values are not equal in this example an exception will be raised.
+
+try:
+    a=10
+    b=20
+    assert a==b, "Value mismatch"
+except AssertionError as e:
+    print(e)
+Value mismatch
+
+ImportError
+
+ImportError is raised when you try to import a module which does not exist. This may happen if you made a typing mistake in the module name or the module doesn't exist in its standard path. In the example below, a module named "non_existing_module" is being imported but it doesn't exist, hence an ImportError exception is raised.
+
+import non_existing_module
+---------------------------------------------------------------------------
+
+ModuleNotFoundError                       Traceback (most recent call last)
+
+<ipython-input-3-fa13ce71c6bc> in <module>()
+----> 1 import non_existing_module
+
+
+ModuleNotFoundError: No module named 'non_existing_module'
+
+IndexError
+----------------
+An IndexError exception is raised when you refer a sequence which is out of range. In the example below, the list abc contains only 3 entries, but the 4th index is being accessed, which will result an IndexError exception.
+
+abc=[10,20,20]
+print(abc[3])
+---------------------------------------------------------------------------
+
+IndexError                                Traceback (most recent call last)
+
+<ipython-input-4-92b42b7756a1> in <module>()
+      1 abc=[10,20,20]
+----> 2 print(abc[3])
+
+
+IndexError: list index out of range
+
+KeyboardInterrupt:
+
+The KeyboardInterrupt exception is raised when you try to stop a running program by pressing ctrl+c (or Delete). In the example below, if you press ctrl+c, the program will raise a KeyboardInterrupt exception.
+
+try:
+    print ('Press Return or Ctrl+C:')
+    ignore = input()
+except KeyboardInterrupt:
+    print ('Caught KeyboardInterrupt')
+else:
+    print ('No exception')
+Press Return or Ctrl+C:
+test
+No exception
+
+KeyError:
+---------------
+When a key is not found in a dictionary, a KeyError exception is raised. In the example below, a key which is not present in the dictionary is being accessed, which will result in a KeyError exception.
+
+abc = { 'a':1, 'b':2 }
+print (abc['c'])
+---------------------------------------------------------------------------
+
+KeyError                                  Traceback (most recent call last)
+
+<ipython-input-7-0bdcbdd11b8e> in <module>()
+      1 abc = { 'a':1, 'b':2 }
+----> 2 print (abc['c'])
+
+
+KeyError: 'c'
+
+NameError;
+
+A NameError is raised when a name is referred to in code which doesn't exist in the local or global namespace. In the example below, a name not_defined is being accessed, which is not defined, hence the code will raise a NameError exception.
+
+def func():
+    print(not_defined)
+func()
+---------------------------------------------------------------------------
+
+NameError                                 Traceback (most recent call last)
+
+<ipython-input-9-bb02057f1589> in <module>()
+      1 def func():
+      2     print(not_defined)
+----> 3 func()
+
+
+<ipython-input-9-bb02057f1589> in func()
+      1 def func():
+----> 2     print(not_defined)
+      3 func()
+
+
+NameError: name 'not_defined' is not defined
+
+TypeError
+-----------
+When two unrelated type of objects are combined, TypeError exception is raised.In example below, an int and a string is added, which will result in TypeError exception.
+
+try:
+    a=int(5)
+    b=str
+    c=a+b
+except TypeError:
+    print ('Caught TypeError Exception')
+else:
+    print ('No exception')
+Caught TypeError Exception
+ValueError
+A ValueError is raised when a function receives a value that has the right type but an invalid value. In example below, an int is being printed but value given is a character, hence it will raise a ValueError exception.
+
+try:
+    print(int('a'))
+except ValueError:
+    print ('Caught ValueError Exception')
+else:
+    print ('No exception')
+Caught ValueError Exception
+
+Handling an Exception
+=========================
+Python handles exceptions using try and except blocks. In try block you can write the code which is suspicious to raise an exception, and in except block, you can write the code which will handle this exception.
+
+Syntax:
+try:
+    You do your operations here;
+except Exception1: 
+    If there is Exception1, then execute this block.
+except Exception2:
+    If there is Exception2, then execute this block.
+
+
+In the example below, Program is asking the user to input total marks scored by a student and number of sections in exam,based on which it will calculate the average marks scored per section.
+
+Total_Marks = int(input("Enter Total Marks Scored: "))
+Num_of_Sections = int(input("Enter Num of Sections: "))
+Average = 0
+try:
+    Average = int(Total_Marks/Num_of_Sections)
+except ZeroDivisionError:
+    print("There has to be atleast 1 or more than 1 sections.")
+print("Average marks scored per section is: ",Average)
+
+Enter Total Marks Scored: 5
+Enter Num of Sections: 0
+There has to be atleast 1 or more than 1 sections.
+Average marks scored per section is:  0
+In above example, if you notice, the line where divison is happening is written inside try block, because it is suspected to raise an exception in case if zero is entered for number of sections, and the except block is written to handle the corresponding exception for any such event.
+The try statement works as follows.
+• First, the try clause (the statement(s) between the try and except keywords) is executed. 
+• If no exception occurs, the except clause is skipped and execution of the try statement is finished. 
+• If an exception occurs during execution of the try clause, the rest of the clause is skipped. Then if its type matches the exception named after the except keyword, the except clause is executed, and then execution continues after the try statement.
+• If an exception occurs which does not match the exception named in the except clause, it is passed on to outer try statements; if no handler is found, it is an unhandled exception and execution stops with a message.
+A try clause can have any number of except clause to handle them differently, but only one will be executed in case an exception occurs.
+
+
+Except clause with multiple exceptions
+If you want to write a single except clause to handle multiple exceptions,this can be achieved by writing names of exception classes in except clause seperated by comma.
+
+Here is an example to illustrate this.
+try:
+    fp = open('myfile.txt')
+    line = f.readline()
+    i = int(s.strip())
+except (IOError,ValueError) as e:
+    print ("Please check the file,either the file is read-only or the data can't be converted to an integer.",e.errno)
+except:        #Note the use of except here,without any exception class, this can be used to handle all exception classes.
+    print ("Unexpected error")
+In this example, the code can handle IOError as well as ValueError, if the file is read-only or the data is not convertable to int.
+
+
+try-finally clause
+The try statement in Python can have an optional finally clause. In case if there is any code which you want to be executed, whether exception occurs or not, then that code can be placed inside the finally block. When an exception occurs, the control immediately goes to finally block and all the lines in finally block gets executed first. After that the control goes to except block to handle exception. This can be useful when you have clean-up activities to be done in your code(i.e.closing files or active Database connections)
+
+Here is an example of file operations to illustrate this.
+try:
+   fh = open("test", "w")
+   try:
+      fh.write("Test file!!")
+   finally:
+      print ("Closing the file")
+      fh.close()
+except IOError:
+   print ("Error: File not found or is read-only" )
+Closing the file
+In this example, if file could not be created or is read only, then an exception will be thrown, but before the execution of except block, finally block will be executed and file will be closed first.
+
+
+Python Custom Exceptions
+Python has many built-in exceptions which you can use in your program, but sometimes you may need to create custom exceptions with custom messages to serve your purpose.
+
+You can do so by creating a new class, which will be derived from the pre-defined Exception class in Python.
+
+Here is an example of writing custom Exception class.
+class UnAcceptedValueError(Exception):   
+    def __init__(self, data):    
+        self.data = data
+    def __str__(self):
+        return repr(self.data)
+
+Total_Marks = int(input("Enter Total Marks Scored: "))
+try:
+    Num_of_Sections = int(input("Enter Num of Sections: "))
+    if(Num_of_Sections < 1):
+        raise UnAcceptedValueError("Number of Sections can't be less than 1")
+except UnAcceptedValueError as e:
+    print ("Received error:", e.data)
+Enter Total Marks Scored: 10
+Enter Num of Sections: 0
+Received error: Number of Sections can't be less than 1
+In this example, if you enter anything less than 1, custom exception will be raised and handled. Many standard modules define their own exceptions to report errors that may occur in functions they define.
+
+
+Side effect of Exception Handling
+Exception handling has a side effect too. Programs using try-except to handle exception will run slightly slower. Also the size of your code will also increase. 
+Below is an example, where timeit module of Python is being used to check execution time of 2 different statements. In stmt1 try-except is used to handle ZeroDivisionError, while in stmt2 if statement is used to check the condition. After that, these statements are executed 10000 times with a=0. When you check the execution time of both the statements, you will find that stmt1 which is handling the exception took slightly higher time than stmt2 which is just checking the value and doing nothin if condition is not met.
+Therefore You should use exceptions to handle exceptional circumstances only (when you are not sure of the input being received for arithmetic calculations or not sure about existance of a file while trying to open it) not for normal error handling cases.
+
+import timeit
+setup="a=0"
+stmt1 = '''\
+try:
+    b=10/a
+except ZeroDivisionError:
+    pass'''
+stmt2 = '''\
+if a!=0:
+    b=10/a'''
+print("time=",timeit.timeit(stmt1,setup,number=10000))
+print("time=",timeit.timeit(stmt2,setup,number=10000))
+time= 0.01159225101582706
+time= 0.000487806013552472
+Conclusion
+Exception handling provides a mechanism to decouple handling of errors or other exceptional circumstances from the typical control flow of your code. This allows more freedom to handle errors.
+try blocks look for exceptions thrown by the code written or called within them and if found passes it to except blocks, which handles exceptions of particular types.
+Exceptions are handled immediately. If an exception is raised, control jumps to the nearest except block that can handle the exception.If no handler is found,the program will terminate with an unhandled exception error.except blocks can be configured to catch exceptions of a particular type, or a Except-all handler can be set up by using except without name of any exception class. All of the exceptions are derived from the Exception class.
+You can use finally to perform clean-up tasks in your code before handling the exception.
+Exception handling does have a cost. Codes using exceptions may run slightly slower. You should only use exceptions to handle exceptional circumstances, not for normal error handling cases.
