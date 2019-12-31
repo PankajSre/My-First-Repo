@@ -12,6 +12,7 @@ except:
     
 finally:
     print('This will execute always!!!')
+	print('This will execute always!!!')
     fh.close()
 
 
